@@ -1,6 +1,6 @@
 Name:           brasero
-Version:        3.12.2
-Release:        8
+Version:        3.12.3
+Release:        1
 Summary:        Brasero – CD/DVD burner
 License:        GPLv3+
 URL:            https://wiki.gnome.org/Apps/Brasero
@@ -48,13 +48,13 @@ sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 %delete_la
 %find_lang brasero
 
-appstream-util replace-screenshots %{buildroot}%{_datadir}/appdata/brasero.appdata.xml \
+appstream-util replace-screenshots %{buildroot}%{_datadir}/metainfo/brasero.appdata.xml \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/brasero/a.png \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/brasero/b.png \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/brasero/c.png
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/brasero.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/brasero.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
@@ -69,7 +69,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_bindir}/*
 %{_libdir}/{brasero3,*.so.*,girepository-1.0/*.typelib,nautilus/extensions-3.0/*.so}
 
-%{_datadir}/{brasero,applications/brasero.desktop,appdata/brasero.appdata.xml}
+%{_datadir}/{brasero,applications/brasero.desktop,metainfo/brasero.appdata.xml}
 %{_datadir}/{icons/hicolor/*/apps/*,mime/packages/*,GConf/gsettings/brasero.convert}
 %{_datadir}/{glib-2.0/schemas/org.gnome.brasero.gschema.xml,applications/brasero-nautilus.desktop}
 
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Wed Apr 12 2023 liyanan <thistleslyn@163.com> - 3.12.3-1
+- Update to 3.12.3
+
 * Wed Nov 27 2019 zhangchunyu <zhangchunyu11@huawei.com> - 3.12.2-8
 - Package init
 
