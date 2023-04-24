@@ -1,7 +1,7 @@
 Name:           brasero
 Version:        3.12.3
-Release:        1
-Summary:        Brasero – CD/DVD burner
+Release:        2
+Summary:        Brasero - CD/DVD burner
 License:        GPLv3+
 URL:            https://wiki.gnome.org/Apps/Brasero
 Source0:        https://download.gnome.org/sources/brasero/3.12/brasero-%{version}.tar.xz
@@ -38,6 +38,10 @@ Help document for the brasero package.
 %autosetup -n %{name}-%{version} -p1
 
 %build
+%if "%toolchain" == "clang"
+  CFLAGS="$CFLAGS -Wno-error=format-nonliteral"
+%endif
+
 %configure --enable-nautilus --enable-libburnia --enable-search --enable-playlist \
            --enable-preview --enable-inotify --disable-caches
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
@@ -86,6 +90,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Mon Apr 24 2023 jammyjellyfish <jammyjellyfish255@outlook.com> - 3.12.3-2
+- Fix clang build error
+
 * Wed Apr 12 2023 liyanan <thistleslyn@163.com> - 3.12.3-1
 - Update to 3.12.3
 
